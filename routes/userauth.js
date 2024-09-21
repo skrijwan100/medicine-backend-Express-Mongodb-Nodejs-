@@ -4,9 +4,10 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const User=require("../models/User");
+const fecthuser= require("../middleware/fecthuser")
 JWT_SERECT="ufhg^)#*dfn"
 
-router.get("/register",[
+router.post("/register",[
     body('name',"Enter your name").exists(),
     body("email","Enter a valid email.").isEmail(),
     body("address","Enter a valid address").isLength({min:7}),
@@ -48,7 +49,7 @@ router.get("/register",[
   
 })
 
-router.get("/login",[
+router.post("/login",[
     body("email","Enter a valid email.").isEmail(),
     body("password","Enter password").exists()
 ],async(req,res)=>{
@@ -78,6 +79,13 @@ router.get("/login",[
 }
 
     
+})
+
+router.post("/getuser",fecthuser,async (req,res)=>{
+  let userid=req.user
+  let user=await User.findById(userid).select("-password")
+  res.status(200).json({"massage":user})
+
 })
 
 module.exports=router;
