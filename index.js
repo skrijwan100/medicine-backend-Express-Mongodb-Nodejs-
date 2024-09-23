@@ -16,6 +16,8 @@ app.get('/', (req, res) => {
 app.use("/api/userauth",require("./routes/userauth"))
 app.use("/api/products",require("./routes/products"))
 app.use("/api/order",require("./routes/orderplace"))
+app.use("/api/doctor",require("./routes/doctor"))
+app.use("/api/doctorbook",require("./routes/bookdoctor"))
 
 
 app.listen(PORT,()=>{
