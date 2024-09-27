@@ -44,12 +44,12 @@ router.post("/addorder", fecthuser, [
 router.post("/fecthorder",fecthuser,async(req,res)=>{
     try {
        let oneorder= await Order.findOne({user:req.user})
-       if(oneorder.user==req.user){
-            let allorder= await Order.find({user:req.user})
-            
-           return res.status(200).json({allorder})
-        }
-        return res.status(404).json({"massage":"No order found"})
+       if(oneorder==null){
+           return res.status(404).json({"massage":"No order found"})
+    }
+    let allorder= await Order.find({user:req.user})
+    
+   return res.status(200).json({allorder})
         
     } catch (error) {
         console.log(error)

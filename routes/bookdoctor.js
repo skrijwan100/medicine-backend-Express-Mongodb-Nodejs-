@@ -34,6 +34,27 @@ router.post("/addbook",[
         console.log(error)
         res.status(500).send("Internal server error.");
     }
+});
+
+router.post("/fecthbook",fecthuser,async(req,res)=>{
+    try {
+        
+  
+    const findbook= await Booking.findOne({user:req.user})
+    // console.log(findbook)
+    if(findbook==null){
+        return res.status(404).json({"message":"NOT FOUND ANY BOOKING"})
+    }
+    const findallbook= await Booking.find({user:req.user})
+
+   return res.status(200).json({findallbook})
+} catch (error) {
+    console.log(error)
+    res.status(500).send("Internal server error.");
+}
+    
+
+
 })
 
 
