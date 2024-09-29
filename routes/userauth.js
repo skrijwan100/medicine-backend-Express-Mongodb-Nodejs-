@@ -71,7 +71,7 @@ router.post("/login",[
     const authtoken= jwt.sign({
         user:find.id
     },JWT_SERECT)
-    return res.status(200).json({"massage":"Successfully login.",authtoken})
+    return res.status(200).json({"massage":"Successfully",authtoken})
 } catch (error) {
     console.log(error)
     res.status(500).send("intarnal server error.")
