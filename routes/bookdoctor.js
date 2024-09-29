@@ -43,7 +43,7 @@ router.post("/fecthbook",fecthuser,async(req,res)=>{
     const findbook= await Booking.findOne({user:req.user})
     // console.log(findbook)
     if(findbook==null){
-        return res.status(404).json({"message":"NOT FOUND ANY BOOKING"})
+        return res.status(404).json({"message":"NOT FOUND ANY    BOOKING"})
     }
     const findallbook= await Booking.find({user:req.user})
 
@@ -56,6 +56,27 @@ router.post("/fecthbook",fecthuser,async(req,res)=>{
 
 
 })
+ router.delete("/deletebooking/:id",fecthuser,async(req,res)=>{
+    try {
+        
+ 
 
+    let findbooking= await Booking.findById(req.params.id)
+    if(!findbooking){
+        return res.status(404).json({"message":"NOT FOUND"})
+    }
+    
+    await Booking.findByIdAndDelete(req.params.id)
+
+
+    return res.status(200).json({"message":"Suessfully delete.!"})
+} catch (error) {
+   
+    res.status(404).json({"messege":"id is wrong"});
+        
+}
+
+
+ })
 
 module.exports=router;
