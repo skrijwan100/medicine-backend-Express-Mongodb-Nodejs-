@@ -20,6 +20,7 @@ router.post("/addorder", fecthuser, [
             return res.status(404).json({ "message": "Product NOT FOUND" });
           }
         console.log(productfind.ppize)
+        const ImgUrL=productfind.ImgUrL
         let totalAmount=0;
         totalAmount+=quantity*Number.parseInt(productfind.ppize)
         console.log(totalAmount)
@@ -28,6 +29,7 @@ router.post("/addorder", fecthuser, [
             products,
             totalAmount,
             quantity,
+            ImgUrL,
             user: req.user
 
         })
