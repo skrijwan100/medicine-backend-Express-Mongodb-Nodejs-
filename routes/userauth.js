@@ -14,7 +14,7 @@ router.post("/register",[
     body("phone","Enter your phone number").isLength({min:10}),
     body("password","password length must be 5 word").isLength({min:5})
 ],async(req,res)=>{
-  console.log(req.body)
+  // console.log(req.body)
   try {
     
       const {name,email,address,phone,password}=req.body;
