@@ -16,6 +16,10 @@ const Doctor=new Schema({
     fees:{
         type:Number,
         require:true,
+    },
+    ImgUrl:{
+        type:String,
+        require:true,
     }
 })
 module.exports=mongoose.model('Doctor',Doctor);

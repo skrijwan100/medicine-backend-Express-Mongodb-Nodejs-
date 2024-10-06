@@ -23,7 +23,7 @@ router.post("/adddoctor",[
     body("fees","Enter doctor fees.").exists()
 ],fecthadmin,async (req,res)=>{
     try {
-    const {dname,doctorspiclity,availabletime,fees}=req.body;
+    const {dname,doctorspiclity,availabletime,fees,ImgUrl}=req.body;
     const error=validationResult(req)
     if(!error.isEmpty()){
       return res.status(400).json({error:error.array()});
@@ -32,7 +32,8 @@ router.post("/adddoctor",[
         dname,
         doctorspiclity,
         availabletime,
-        fees
+        fees,
+        ImgUrl
     })
 const savedoctor= await doctor.save()
     res.status(200).json({savedoctor})
@@ -50,7 +51,7 @@ router.put("/updatedoctor/:id",[
     body("fees","Enter doctor fees.").exists()
 ],fecthadmin,async(req,res)=>{
     try {
-    const {dname,doctorspiclity,availabletime,fees}=req.body;
+    const {dname,doctorspiclity,availabletime,fees,ImgUrl}=req.body;
     const doctor = await Doctor.findById(req.params.id)
     const updoctor={}
     if(dname){
@@ -64,6 +65,9 @@ router.put("/updatedoctor/:id",[
     }
     if(fees){
         updoctor.fees=fees
+    }
+    if(ImgUrl){
+        updoctor.ImgUrl=ImgUrl
     }
     const updatedoctor= await Doctor.findByIdAndUpdate(req.params.id,{$set:updoctor}, {new:true})
 
