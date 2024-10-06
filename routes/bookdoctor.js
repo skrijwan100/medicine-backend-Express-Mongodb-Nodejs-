@@ -11,7 +11,7 @@ router.post("/addbook",[
     body("doctorspiclity","Enter doctor spiclity.").exists()
 ],fecthuser,async(req,res)=>{
     try {
-        const{dname,doctorspiclity}=req.body;
+        const{dname,doctorspiclity,patientname,patientage,ImgUrl}=req.body;
         const error=validationResult(req)
         if(!error.isEmpty()){
           return res.status(400).json({error:error.array()});
@@ -25,6 +25,9 @@ router.post("/addbook",[
             dname,
             doctorspiclity,
             dcotorfees,
+            patientname,
+            patientage,
+            ImgUrl,
             user:req.user
         })
         const savebook= await booking.save();

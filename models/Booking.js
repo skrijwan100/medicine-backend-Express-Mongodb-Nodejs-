@@ -18,7 +18,21 @@ const bookdoctor= new Schema({
     dcotorfees:{
       type:Number,
       require:true
+    },
+    patientname:{
+        type:String,
+        require:true
+    },
+    patientage:{
+        type:Number,
+        require:true
+    },
+    ImgUrl:{
+        type:String,
+        require:true
     }
+
+
 })
 
 module.exports=mongoose.model('Booking',bookdoctor)
