@@ -9,7 +9,7 @@ app.use(express.json())
 app.use(cors({
   origin: 'http://localhost:3000',  // Allow requests only from frontend
   methods: 'GET, POST, PUT, DELETE', // Allow specific methods
-  allowedHeaders: 'Content-Type, Authorization, auth-token', // Add allowed headers
+  allowedHeaders: 'Content-Type, Authorization, auth-token,admin-token', // Add allowed headers
   credentials: true, // Allow credentials like cookies or authentication headers
 }));
 
