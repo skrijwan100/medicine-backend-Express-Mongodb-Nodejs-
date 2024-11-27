@@ -5,8 +5,8 @@ const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const User=require("../models/User");
 const fecthuser= require("../middleware/fecthuser")
-JWT_SERECT="ufhg^)#*dfn"
 
+JWT_SERECT=process.env.JWT_SERECT
 router.post("/register",[
     body('name',"Enter your name").exists(),
     body("email","Enter a valid email.").isEmail(),
@@ -23,6 +23,7 @@ router.post("/register",[
         return res.status(400).json({error:error.array()});
       }
       const validemail= await User.findOne({email})
+      console.log(validemail)
       if(validemail){
          return res.status(400).json({"massage":"This email is is alredy exists"})
       }
@@ -35,11 +36,11 @@ router.post("/register",[
         address:address,
         phone:phone,
         password:haspassword
-    })
+    }) 
     user.save()
     const authtoken=jwt.sign({
   user:user.id
-    },JWT_SERECT)
+    },process.env.JWT_SERECT)
       return res.status(200).json({user:"Successfully",authtoken})
   } catch (error) {
     console.log(error)
@@ -47,7 +48,7 @@ router.post("/register",[
   }
 
   
-})
+})  
 
 router.post("/login",[
     body("email","Enter a valid email.").isEmail(),
@@ -70,10 +71,10 @@ router.post("/login",[
     }
     const authtoken= jwt.sign({
         user:find.id
-    },JWT_SERECT)
+    },process.env.JWT_SERECT)
     return res.status(200).json({"massage":"Successfully",authtoken})
-} catch (error) {
-    console.log(error)
+} catch (error) { 
+    // console.log(error)
     res.status(500).send("intarnal server error.")
         
 }
@@ -82,6 +83,7 @@ router.post("/login",[
 })
 
 router.post("/getuser",fecthuser,async (req,res)=>{
+  // console.log(process.env.JWT_SERECT)
   let userid=req.user
   let user=await User.findById(userid).select("-password")
   res.status(200).json({"massage":user})
